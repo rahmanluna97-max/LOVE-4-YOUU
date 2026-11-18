@@ -1,0 +1,457 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUMO ♡ DEEP</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, serif;
+  background: #21040e;
+  color: #ffe3df;
+  overflow: hidden;
+}
+
+/* PASSWORD HOME PAGE */
+#lock {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(ellipse at 50% 45%, #68182d 0%, #370817 45%, #16020a 100%);
+}
+
+#lock::before {
+  content: "✦       ✧       ✦       ✧";
+  position: absolute;
+  top: 12%;
+  width: 100%;
+  text-align: center;
+  color: #e9a5a7;
+  letter-spacing: 35px;
+  animation: glow 3s infinite alternate;
+}
+
+.lockbox {
+  width: 100%;
+  max-width: 390px;
+  padding: 40px 25px;
+  text-align: center;
+  border: 1px solid #d49b75;
+  border-radius: 25px;
+  background: #260610c9;
+  box-shadow: 0 0 50px #a3294933;
+  animation: appear 1.5s ease;
+}
+
+.lockbox h1 {
+  color: #ffcfaa;
+  font-size: clamp(27px, 7vw, 36px);
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px #e99a76;
+}
+
+.heart {
+  color: #ff7896;
+  display: inline-block;
+  animation: heartbeat 1.5s infinite;
+}
+
+.lockbox .small {
+  margin: 25px 0;
+  color: #e9b7b6;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  background: #18040b;
+  color: #fff0df;
+  border: 1px solid #d99c78;
+  border-radius: 30px;
+  outline: none;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 4px;
+}
+
+button {
+  margin-top: 22px;
+  padding: 13px 38px;
+  border-radius: 30px;
+  border: 1px solid #f1bd9a;
+  color: white;
+  background: linear-gradient(100deg,#7c1733,#b63857);
+  font-size: 15px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #e45b7a55;
+  transition: .3s;
+}
+
+button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px #f28aa5;
+}
+
+#error {
+  color: #ff9aaf;
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+/* MAIN WEBSITE */
+#main {
+  display: none;
+  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  position: relative;
+  text-align: center;
+  padding: 25px 15px;
+  background:
+    radial-gradient(ellipse at 50% 70%, #35112b 0%, #18091e 45%, #100817 100%);
+}
+
+#main::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, transparent, #09030b99);
+}
+
+.heading {
+  position: relative;
+  z-index: 2;
+  margin-top: 15px;
+  font-size: clamp(30px, 8vw, 49px);
+  letter-spacing: 5px;
+  color: #ffdabd;
+  text-shadow: 0 0 10px #ff8a9c, 0 0 30px #a93268;
+  animation: titleGlow 3s infinite alternate;
+}
+
+.love-text {
+  position: relative;
+  z-index: 2;
+  margin-top: 15px;
+  font-size: clamp(17px, 5vw, 25px);
+  letter-spacing: 5px;
+  color: #ffc2cb;
+  animation: appear 2s ease;
+  text-shadow: 0 0 15px #fa799f;
+}
+
+/* LOTUS FLOWER */
+.lotus-area {
+  height: 310px;
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  margin: 45px auto 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 800px;
+}
+
+.lotus {
+  position: relative;
+  width: 300px;
+  height: 240px;
+  transform-style: preserve-3d;
+  animation: floating 4s ease-in-out infinite;
+}
+
+/* Petals */
+.petal {
+  position: absolute;
+  width: 90px;
+  height: 155px;
+  left: 105px;
+  top: 35px;
+  border-radius: 80% 80% 35% 35%;
+  transform-origin: 50% 95%;
+  background:
+    linear-gradient(90deg,
+      #8d234d 0%,
+      #d84d79 25%,
+      #ffb4c6 52%,
+      #e75b88 78%,
+      #741a43 100%);
+  border: 1px solid #ffafc4;
+  box-shadow:
+    inset 8px 0 15px #ffffff40,
+    inset -8px 0 15px #6c123e66,
+    0 0 15px #ff6b9a55;
+  animation: bloom 3s ease-out both;
+}
+
+.petal::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  height: 80%;
+  width: 1px;
+  background: #ffe3e9aa;
+  box-shadow: 0 0 7px #fff;
+}
+
+.p1 { transform: rotate(-72deg) scale(.8); }
+.p2 { transform: rotate(-54deg) scale(.95); }
+.p3 { transform: rotate(-36deg); }
+.p4 { transform: rotate(-18deg) scale(1.05); }
+.p5 { transform: rotate(0deg) scale(1.12); }
+.p6 { transform: rotate(18deg) scale(1.05); }
+.p7 { transform: rotate(36deg); }
+.p8 { transform: rotate(54deg) scale(.95); }
+.p9 { transform: rotate(72deg) scale(.8); }
+
+.p10 {
+  transform: rotate(-30deg) scale(.67);
+  background: linear-gradient(90deg,#b82f61,#ffbdce,#d73e78);
+}
+
+.p11 {
+  transform: rotate(30deg) scale(.67);
+  background: linear-gradient(90deg,#b82f61,#ffbdce,#d73e78);
+}
+
+.center {
+  position: absolute;
+  top: 150px;
+  left: 128px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  z-index: 3;
+  background: radial-gradient(circle,#fff4a8,#f4a83c,#a94d18);
+  box-shadow: 0 0 30px #ffbd53;
+}
+
+/* WATER REFLECTION */
+.reflection {
+  position: absolute;
+  width: 220px;
+  height: 40px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse,#e75a9470,transparent 70%);
+  filter: blur(9px);
+  animation: water 3s infinite alternate;
+}
+
+/* FLOATING PETALS */
+.floating-petal {
+  position: absolute;
+  color: #ff9dbb;
+  font-size: 22px;
+  animation: drift 8s linear infinite;
+  opacity: .7;
+}
+
+.f1 { left: 10%; top: 25%; }
+.f2 { right: 12%; top: 38%; animation-delay: 2s; }
+.f3 { left: 20%; top: 65%; animation-delay: 4s; }
+.f4 { right: 22%; top: 75%; animation-delay: 1s; }
+
+/* SPARKLES */
+.sparkle {
+  position: absolute;
+  color: #ffd6a0;
+  animation: sparkle 2.5s infinite alternate;
+}
+
+.s1 { left: 15%; top: 20%; }
+.s2 { right: 15%; top: 28%; }
+.s3 { left: 25%; top: 75%; }
+.s4 { right: 25%; top: 65%; }
+
+.footer {
+  position: relative;
+  z-index: 2;
+  color: #e8b9c7;
+  letter-spacing: 3px;
+  font-size: 13px;
+  margin: 20px 0 35px;
+}
+
+@keyframes floating {
+  0%,100% { transform: translateY(0) rotateX(0deg); }
+  50% { transform: translateY(-13px) rotateX(4deg); }
+}
+
+@keyframes bloom {
+  from { opacity: 0; filter: brightness(.5); }
+  to { opacity: 1; filter: brightness(1); }
+}
+
+@keyframes titleGlow {
+  from { text-shadow: 0 0 8px #ff809c; }
+  to { text-shadow: 0 0 30px #ffb5c8; }
+}
+
+@keyframes heartbeat {
+  50% { transform: scale(1.25); }
+}
+
+@keyframes glow {
+  to { opacity: .3; text-shadow: 0 0 20px pink; }
+}
+
+@keyframes sparkle {
+  from { opacity: .2; transform: scale(.6); }
+  to { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes drift {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-100px) rotate(180deg); opacity: 0; }
+}
+
+@keyframes water {
+  from { transform: translateX(-50%) scaleX(.8); opacity: .4; }
+  to { transform: translateX(-50%) scaleX(1.2); opacity: .9; }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width:480px) {
+  .lotus-area { transform: scale(.88); margin: 20px auto; }
+  .heading { letter-spacing: 3px; }
+  .love-text { letter-spacing: 3px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD PAGE -->
+<div id="lock">
+  <div class="lockbox">
+
+    <h1>LUMO <span class="heart">♡</span> DEEP</h1>
+
+    <p class="small">
+      THIS LITTLE WORLD IS ONLY FOR YOU
+    </p>
+
+    <input
+      type="password"
+      id="password"
+      placeholder="ENTER PASSWORD"
+    >
+
+    <button onclick="unlock()">UNLOCK ♡</button>
+
+    <div id="error"></div>
+
+    <p class="small">MADE WITH LOVE ♡</p>
+
+  </div>
+</div>
+
+<!-- MAIN PAGE -->
+<div id="main">
+
+  <div class="floating-petal f1">❀</div>
+  <div class="floating-petal f2">✿</div>
+  <div class="floating-petal f3">❀</div>
+  <div class="floating-petal f4">✿</div>
+
+  <div class="sparkle s1">✦</div>
+  <div class="sparkle s2">✧</div>
+  <div class="sparkle s3">✦</div>
+  <div class="sparkle s4">✧</div>
+
+  <h1 class="heading">
+    LUMO <span class="heart">♡</span> DEEP
+  </h1>
+
+  <h2 class="love-text">
+    I LOVE YOU, SIR
+  </h2>
+
+  <div class="lotus-area">
+
+    <div class="lotus">
+
+      <div class="petal p1"></div>
+      <div class="petal p2"></div>
+      <div class="petal p3"></div>
+      <div class="petal p4"></div>
+      <div class="petal p5"></div>
+      <div class="petal p6"></div>
+      <div class="petal p7"></div>
+      <div class="petal p8"></div>
+      <div class="petal p9"></div>
+      <div class="petal p10"></div>
+      <div class="petal p11"></div>
+
+      <div class="center"></div>
+
+    </div>
+
+    <div class="reflection"></div>
+
+  </div>
+
+  <p class="footer">
+    FOREVER & ALWAYS ♡
+  </p>
+
+</div>
+
+<script>
+function unlock() {
+
+  const password =
+    document.getElementById("password").value;
+
+  if (password === "DEEPMO") {
+
+    document.getElementById("lock").style.display = "none";
+
+    document.getElementById("main").style.display = "block";
+
+  } else {
+
+    document.getElementById("error").innerText =
+      "Wrong password! Try again, my love ♡";
+
+  }
+
+}
+
+document.getElementById("password")
+.addEventListener("keydown", function(event) {
+
+  if (event.key === "Enter") {
+    unlock();
+  }
+
+});
+</script>
+
+</body>
+</html>
